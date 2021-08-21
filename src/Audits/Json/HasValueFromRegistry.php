@@ -65,7 +65,7 @@ class HasValueFromRegistry extends HasValue
 
         // Validate the value.
 
-        $result = parent::auditPrimitive($constructure, $input, $expected);
+        $result = $this->valueMatches($input->getValue(), $this->getValues());
 
         // If the input didn't exist in the registry...
 
