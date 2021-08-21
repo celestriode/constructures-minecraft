@@ -1,0 +1,3 @@
+# AVOID RELYING ON THESE POPULATORS
+
+The populators and data files listed here are purely for example purposes. Some may be sufficient, such as the colors populator, but generally the data reports from the Minecraft jar should be used instead (which, incidentally, does not include colors). The method to obtain those reports is detailed [here](https://wiki.vg/Data_Generators). There is no guarantee that the populators here will be kept up-to-date. If they were, it would also mean an inability to populate based on version.
