@@ -193,6 +193,6 @@ class CoordinateSet extends AbstractStringAudit
      */
     public function toString(): string
     {
-        return self::getName() . '{count=' . $this->getCoordinateCount() . ',absolute=' . ($this->getOptions() & self::ABSOLUTE) ? 'true' : 'false' . ',relative=' . ($this->getOptions() & self::RELATIVE) ? 'true' : 'false' . ',local=' . ($this->getOptions() & self::LOCAL) ? 'true' : 'false' . '}';
+        return self::getName() . '{count=' . $this->getCoordinateCount() . ',absolute=' . (($this->getOptions() & self::ABSOLUTE) ? 'true' : 'false') . ',relative=' . (($this->getOptions() & self::RELATIVE) ? 'true' : 'false') . ',local=' . (($this->getOptions() & self::LOCAL) ? 'true' : 'false') . '}';
     }
 }

@@ -218,6 +218,6 @@ class ValidColor extends AbstractPrimitiveAudit
      */
     public function toString(): string
     {
-        return self::getName() . '{integer=' . ($this->getOptions() & self::INTEGER) ? 'true' : 'false' . ',hex=' . ($this->getOptions() & self::HEX) ? 'true' : 'false' . ',hex_with_prefix=' . ($this->getOptions() & self::HEX_WITH_PREFIX) ? 'true' : 'false' . ',name=' . ($this->getOptions() & self::NAME) ? 'true' : 'false' . '}';
+        return self::getName() . '{integer=' . (($this->getOptions() & self::INTEGER) ? 'true' : 'false') . ',hex=' . (($this->getOptions() & self::HEX) ? 'true' : 'false') . ',hex_with_prefix=' . (($this->getOptions() & self::HEX_WITH_PREFIX) ? 'true' : 'false') . ',name=' . (($this->getOptions() & self::NAME) ? 'true' : 'false') . '}';
     }
 }
