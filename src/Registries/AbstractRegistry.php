@@ -179,7 +179,7 @@ abstract class AbstractRegistry
     {
         // Obtain the singleton.
 
-        $class = self::$instances[static::class] ?? new static($values);
+        $class = self::$instances[static::class] ?? new static(...$values);
 
         // Store the class if it wasn't already stored.
 
