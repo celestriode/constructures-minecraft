@@ -36,7 +36,7 @@ class IsResourceLocation extends AbstractStringAudit
 
             // If the resource location isn't of valid syntax, the audit fails.
 
-            $constructure->getEventHandler()->trigger(self::INVALID_SYNTAX, $this, $input, $expected);
+            $constructure->getEventHandler()->trigger(self::INVALID_SYNTAX, $e, $this, $input, $expected);
 
             return false;
         }

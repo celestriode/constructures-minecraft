@@ -38,7 +38,7 @@ class AbstractRegistry
     {
         if (!empty($values)) {
 
-            $this->setValues($values);
+            $this->setValues(...$values);
         }
     }
 
