@@ -12,7 +12,7 @@ use Celestriode\ConstructuresMinecraft\Utils\RegistryPopulator;
  *
  * @package Celestriode\ConstructuresMinecraft\Registries
  */
-class AbstractRegistry
+abstract class AbstractRegistry
 {
     /**
      * @var array Instances of registries.
@@ -28,6 +28,13 @@ class AbstractRegistry
      * @var bool Whether or not $values has been populated dynamically.
      */
     private $populated = false;
+
+    /**
+     * Returns a friendly name of the registry.
+     *
+     * @return string
+     */
+    abstract public function getName(): string;
 
     /**
      * Optionally instantiates with a list of values, overwriting any values already within $values by default.

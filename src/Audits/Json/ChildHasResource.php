@@ -98,4 +98,12 @@ class ChildHasResource extends ChildHasValue
     {
         return "child_has_resource";
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function toString(): string
+    {
+        return self::getName() . '{child=' . $this->getKey() . ',registry=' . $this->getRegistry()->getName() . '}';
+    }
 }

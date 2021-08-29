@@ -99,4 +99,12 @@ class HasValueFromRegistry extends HasValue
     {
         return 'has_value_from_registry';
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function toString(): string
+    {
+        return self::getName() . '{registry=' . $this->getRegistry()->getName() . ',lenient=' . ($this->isLenient() ? 'true' : 'false') . '}';
+    }
 }

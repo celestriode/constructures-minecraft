@@ -4,5 +4,11 @@ use Celestriode\ConstructuresMinecraft\Registries\AbstractRegistry;
 
 class Triggers extends AbstractRegistry
 {
-
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return 'advancement_trigger_names';
+    }
 }

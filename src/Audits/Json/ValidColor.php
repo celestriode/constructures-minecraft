@@ -196,10 +196,28 @@ class ValidColor extends AbstractPrimitiveAudit
     }
 
     /**
+     * Returns the bit field that states which colors can be used with this audit.
+     *
+     * @return int
+     */
+    public function getOptions(): int
+    {
+        return $this->options;
+    }
+
+    /**
      * @inheritDoc
      */
     public static function getName(): string
     {
         return 'valid_color';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toString(): string
+    {
+        return self::getName() . '{integer=' . ($this->getOptions() & self::INTEGER) ? 'true' : 'false' . ',hex=' . ($this->getOptions() & self::HEX) ? 'true' : 'false' . ',hex_with_prefix=' . ($this->getOptions() & self::HEX_WITH_PREFIX) ? 'true' : 'false' . ',name=' . ($this->getOptions() & self::NAME) ? 'true' : 'false' . '}';
     }
 }

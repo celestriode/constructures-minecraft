@@ -75,4 +75,12 @@ class HasResourceFromRegistry extends HasValueFromRegistry
     {
         return "has_resource_from_registry";
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function toString(): string
+    {
+        return self::getName() . '{registry=' . $this->getRegistry()->getName() . ',lenient=' . ($this->isLenient() ? 'true' : 'false') . '}';
+    }
 }
