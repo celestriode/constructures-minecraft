@@ -15,9 +15,9 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "celestriode/captain": "v0.0.9-beta",
+        "celestriode/captain": "v0.0.10-beta",
         "celestriode/constructure-json": "^0.3.0",
-        "celestriode/mattock": "v0.0.3-beta"
+        "celestriode/mattock": "v0.0.4-beta"
     },
     "license": "MIT",
     "require-dev": {
