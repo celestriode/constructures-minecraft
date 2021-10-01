@@ -15,7 +15,7 @@ class ValidUrl extends AbstractStringAudit
     public const INVALID_PROTOCOL = 'cff23dd8-ccbb-435d-8cc0-612930a4f37f';
     public const INVALID_SYNTAX = '81781eb1-a58f-487e-b120-087041780463';
 
-    public const PATTERN = '/^(http:\/\/|https:\/\/)([a-z0-9.]-?)*[a-z]+\.[a-z]+$/i';
+    public const PATTERN = '/^(http:\/\/|https:\/\/)([a-z0-9.]-?)*[a-z]+\.[a-z]+\/?.*/i';
 
     /**
      * @inheritDoc
