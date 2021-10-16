@@ -68,7 +68,7 @@ abstract class AbstractRegistry
     public function setValues(...$values): self
     {
         $this->values = [];
-        $this->addValues($values);
+        $this->addValues(...$values);
 
         return $this;
     }
