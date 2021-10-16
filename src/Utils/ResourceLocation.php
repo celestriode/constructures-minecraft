@@ -1,6 +1,6 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Utils;
 
-use Celestriode\ConstructuresMinecraft\Registries\AbstractRegistry;
+use Celestriode\DynamicRegistry\AbstractRegistry;
 use Celestriode\Mattock\Parsers\Java\Utils\ResourceLocation as MattockResourceLocation;
 
 /**

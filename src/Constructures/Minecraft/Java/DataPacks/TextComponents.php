@@ -20,6 +20,7 @@ use Celestriode\ConstructuresMinecraft\Registries\Resources\Fonts;
 use Celestriode\ConstructuresMinecraft\Registries\Resources\Items;
 use Celestriode\ConstructuresMinecraft\Registries\Resources\Keybinds;
 use Celestriode\ConstructuresMinecraft\Registries\Resources\Translations;
+use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\Branch;
 use Celestriode\JsonConstructure\Context\Audits\ChildHasValue;
 use Celestriode\JsonConstructure\Context\Audits\ExclusiveFields;
@@ -48,6 +49,7 @@ class TextComponents implements ConstructuresInterface
 
     /**
      * @inheritDoc
+     * @throws InvalidValue
      */
     public static function getStructure(): StructureInterface
     {
@@ -211,6 +213,7 @@ class TextComponents implements ConstructuresInterface
      * Returns audit verifying font inputs.
      *
      * @return AuditInterface
+     * @throws InvalidValue
      */
     private static function getFontAudit(): AuditInterface
     {
@@ -221,6 +224,7 @@ class TextComponents implements ConstructuresInterface
      * Returns audit verifying keybind inputs.
      *
      * @return AuditInterface
+     * @throws InvalidValue
      */
     private static function getKeybindAudit(): AuditInterface
     {
@@ -231,6 +235,7 @@ class TextComponents implements ConstructuresInterface
      * Returns audit verifying translation keys.
      *
      * @return AuditInterface
+     * @throws InvalidValue
      */
     private static function getTranslationAudit(): AuditInterface
     {
@@ -302,6 +307,7 @@ class TextComponents implements ConstructuresInterface
      * Returns all hover event branches, as well as the audit that ensures the action is restricted to these events.
      *
      * @return array
+     * @throws InvalidValue
      */
     private static function getHoverEventBranches(): array
     {

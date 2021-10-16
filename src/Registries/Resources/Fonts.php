@@ -1,8 +1,8 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Registries\Resources;
 
-use Celestriode\ConstructuresMinecraft\Registries\AbstractRegistry;
+use Celestriode\DynamicRegistry\AbstractStringRegistry;
 
-class Fonts extends AbstractRegistry
+class Fonts extends AbstractStringRegistry
 {
     /**
      * @inheritDoc

@@ -3,7 +3,7 @@
 namespace Celestriode\ConstructuresMinecraft\Audits\Json;
 
 use Celestriode\Constructure\AbstractConstructure;
-use Celestriode\ConstructuresMinecraft\Registries\AbstractRegistry;
+use Celestriode\DynamicRegistry\AbstractRegistry;
 use Celestriode\JsonConstructure\Context\Audits\HasValue;
 use Celestriode\JsonConstructure\Structures\Types\AbstractJsonPrimitive;
 

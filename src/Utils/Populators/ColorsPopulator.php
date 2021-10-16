@@ -1,7 +1,7 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Utils\Populators;
 
-use Celestriode\ConstructuresMinecraft\Registries\AbstractRegistry;
-use Celestriode\ConstructuresMinecraft\Utils\DynamicPopulatorInterface;
+use Celestriode\DynamicRegistry\AbstractRegistry;
+use Celestriode\DynamicRegistry\DynamicPopulatorInterface;
 
 /**
  * Sample populator using values from Minecraft: Java Edition version 1.17.1. Avoid using this; it is purely an example.

@@ -1,8 +1,8 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Registries\Resources;
 
-use Celestriode\ConstructuresMinecraft\Registries\AbstractRegistry;
+use Celestriode\DynamicRegistry\AbstractStringRegistry;
 
-class Translations extends AbstractRegistry
+class Translations extends AbstractStringRegistry
 {
     /**
      * @inheritDoc

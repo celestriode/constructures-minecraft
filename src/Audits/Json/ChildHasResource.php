@@ -3,8 +3,8 @@
 use Celestriode\Captain\Exceptions\CommandSyntaxException;
 use Celestriode\Captain\StringReader;
 use Celestriode\Constructure\AbstractConstructure;
-use Celestriode\ConstructuresMinecraft\Registries\AbstractRegistry;
 use Celestriode\ConstructuresMinecraft\Utils\ResourceLocation;
+use Celestriode\DynamicRegistry\AbstractRegistry;
 use Celestriode\JsonConstructure\Context\Audits\ChildHasValue;
 use Celestriode\JsonConstructure\Structures\Types\JsonObject;
 use Celestriode\JsonConstructure\Structures\Types\JsonString;
