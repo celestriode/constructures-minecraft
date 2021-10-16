@@ -2,6 +2,7 @@
 
 use Celestriode\Constructure\AbstractConstructure;
 use Celestriode\ConstructuresMinecraft\Registries\Resources\Colors;
+use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\AbstractPrimitiveAudit;
 use Celestriode\JsonConstructure\Structures\Types\AbstractJsonPrimitive;
 
@@ -58,6 +59,7 @@ class ValidColor extends AbstractPrimitiveAudit
 
     /**
      * @inheritDoc
+     * @throws InvalidValue
      */
     protected function auditPrimitive(AbstractConstructure $constructure, AbstractJsonPrimitive $input, AbstractJsonPrimitive $expected): bool
     {
@@ -137,7 +139,7 @@ class ValidColor extends AbstractPrimitiveAudit
 
             // Check the Colors registry for a matching legacy color name.
 
-            if (Colors::get()->matches($input->getString())) {
+            if (Colors::get()->has($input->getString())) {
 
                 $succeeds = true;
             } else {

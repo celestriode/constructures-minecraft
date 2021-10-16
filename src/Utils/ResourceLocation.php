@@ -18,6 +18,6 @@ class ResourceLocation extends MattockResourceLocation
      */
     public function validResource(AbstractRegistry $registry): bool
     {
-        return $registry->matches($this->toString());
+        return $registry->has($this->toString());
     }
 }
