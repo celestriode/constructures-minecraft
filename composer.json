@@ -17,7 +17,7 @@
         "ext-json": "*",
         "celestriode/captain": "v0.0.10-beta",
         "celestriode/constructure-json": "^0.3.0",
-        "celestriode/mattock": "v0.0.6-beta",
+        "celestriode/mattock": "v0.0.7-beta",
         "celestriode/dynamic-registry": "^1.0"
     },
     "license": "MIT",

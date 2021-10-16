@@ -6,6 +6,7 @@ use Celestriode\Constructure\AbstractConstructure;
 use Celestriode\JsonConstructure\Context\Audits\AbstractStringAudit;
 use Celestriode\JsonConstructure\Structures\Types\JsonString;
 use Celestriode\Mattock\Exceptions\MattockException;
+use Celestriode\Mattock\Exceptions\NotInRegistryException;
 use Celestriode\Mattock\Parsers\Java\EntitySelectorParser;
 
 /**
@@ -16,6 +17,7 @@ use Celestriode\Mattock\Parsers\Java\EntitySelectorParser;
 class ValidSelector extends AbstractStringAudit
 {
     public const INVALID_SYNTAX = '26a7952f-56a7-4375-84de-99b6d44c3b1e';
+    public const INVALID_SUBVALUE = 'bb86dd72-64c4-48e5-9ac8-b1cd250ba817';
 
     /**
      * @inheritDoc
@@ -35,7 +37,13 @@ class ValidSelector extends AbstractStringAudit
 
             // Selector parsing failed, trigger event and return false.
 
-            $constructure->getEventHandler()->trigger(self::INVALID_SYNTAX, $e, $this, $input, $expected);
+            if ($e instanceof CommandSyntaxException && $e->getType() instanceof NotInRegistryException) {
+
+                $constructure->getEventHandler()->trigger(self::INVALID_SUBVALUE, $e, $e->getType(), $this, $input, $expected);
+            } else {
+
+                $constructure->getEventHandler()->trigger(self::INVALID_SYNTAX, $e, $this, $input, $expected);
+            }
 
             return false;
         }
