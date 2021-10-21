@@ -1,4 +1,4 @@
-<?php namespace Celestriode\ConstructuresMinecraft\Registries\Resources;
+<?php namespace Celestriode\ConstructuresMinecraft\Registries\Java\Resources;
 
 use Celestriode\DynamicRegistry\AbstractStringRegistry;
 

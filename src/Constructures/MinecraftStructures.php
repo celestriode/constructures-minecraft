@@ -2,7 +2,8 @@
 
 use Celestriode\Constructure\Structures\StructureInterface;
 use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\DataPacks\Advancements;
-use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\DataPacks\TextComponents;
+use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\TextComponents as JavaTextComponents;
+use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Bedrock\TextComponents as BedrockTextComponents;
 use Celestriode\ConstructuresMinecraft\Exceptions\RuntimeException;
 
 /**
@@ -16,8 +17,9 @@ final class MinecraftStructures
      * @var string[] The class names of the registered structures that implement ConstructuresInterface.
      */
     private static $structures = [
-        TextComponents::class,
-        Advancements::class
+        JavaTextComponents::class,
+        Advancements::class,
+        BedrockTextComponents::class
     ];
 
     /**

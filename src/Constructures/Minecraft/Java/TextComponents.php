@@ -1,4 +1,4 @@
-<?php namespace Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\DataPacks;
+<?php namespace Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java;
 
 use Celestriode\Constructure\Context\AuditInterface;
 use Celestriode\Constructure\Structures\StructureInterface;
@@ -15,11 +15,11 @@ use Celestriode\ConstructuresMinecraft\Audits\Json\ValidSnbt;
 use Celestriode\ConstructuresMinecraft\Audits\Json\ValidUrl;
 use Celestriode\ConstructuresMinecraft\Audits\Json\ValidUuid;
 use Celestriode\ConstructuresMinecraft\Constructures\ConstructuresInterface;
-use Celestriode\ConstructuresMinecraft\Registries\Resources\Entities;
-use Celestriode\ConstructuresMinecraft\Registries\Resources\Fonts;
-use Celestriode\ConstructuresMinecraft\Registries\Resources\Items;
-use Celestriode\ConstructuresMinecraft\Registries\Resources\Keybinds;
-use Celestriode\ConstructuresMinecraft\Registries\Resources\Translations;
+use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Entities;
+use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Fonts;
+use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Items;
+use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Keybinds;
+use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Translations;
 use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\Branch;
 use Celestriode\JsonConstructure\Context\Audits\ChildHasValue;
@@ -33,7 +33,7 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * Expected structure for text components. Use getStructure() for the whole thing.
  *
- * @package Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\DataPacks
+ * @package Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java
  */
 class TextComponents implements ConstructuresInterface
 {
@@ -126,7 +126,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return AuditInterface
      */
-    private static function getTextAudit(): AuditInterface
+    protected static function getTextAudit(): AuditInterface
     {
         return (new ExclusiveFields('text', 'selector', 'translate', 'score', 'nbt', 'keybind'))->required();
     }
@@ -136,7 +136,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return AuditInterface
      */
-    private static function getSeparatorBranch(): AuditInterface
+    protected static function getSeparatorBranch(): AuditInterface
     {
         $branch = Json::object()
             ->addChild('separator', Json::redirect(self::getUUID()));
@@ -149,7 +149,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return AuditInterface
      */
-    private static function getTranslationBranch(): AuditInterface
+    protected static function getTranslationBranch(): AuditInterface
     {
         $branch = Json::object()
             ->addChild('with', Json::array()
@@ -163,7 +163,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return array
      */
-    private static function getNbtBranches(): array
+    protected static function getNbtBranches(): array
     {
         $branches = [];
 
@@ -204,7 +204,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return AuditInterface
      */
-    private static function getColorAudit(): AuditInterface
+    protected static function getColorAudit(): AuditInterface
     {
         return new ValidColor(ValidColor::HEX_WITH_PREFIX | ValidColor::NAME);
     }
@@ -215,7 +215,7 @@ class TextComponents implements ConstructuresInterface
      * @return AuditInterface
      * @throws InvalidValue
      */
-    private static function getFontAudit(): AuditInterface
+    protected static function getFontAudit(): AuditInterface
     {
         return new HasResourceFromRegistry(Fonts::get(), true);
     }
@@ -226,7 +226,7 @@ class TextComponents implements ConstructuresInterface
      * @return AuditInterface
      * @throws InvalidValue
      */
-    private static function getKeybindAudit(): AuditInterface
+    protected static function getKeybindAudit(): AuditInterface
     {
         return new HasValueFromRegistry(Keybinds::get());
     }
@@ -237,7 +237,7 @@ class TextComponents implements ConstructuresInterface
      * @return AuditInterface
      * @throws InvalidValue
      */
-    private static function getTranslationAudit(): AuditInterface
+    protected static function getTranslationAudit(): AuditInterface
     {
         return new HasValueFromRegistry(Translations::get(), true);
     }
@@ -247,7 +247,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return AuditInterface
      */
-    private static function getBlockAudit(): AuditInterface
+    protected static function getBlockAudit(): AuditInterface
     {
         return new CoordinateSet(CoordinateSet::ABSOLUTE | CoordinateSet::RELATIVE | CoordinateSet::LOCAL);
     }
@@ -259,7 +259,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return AuditInterface
      */
-    private static function getNbtPathAudit(): AuditInterface
+    protected static function getNbtPathAudit(): AuditInterface
     {
         return ValidNbtPath::get();
     }
@@ -269,7 +269,7 @@ class TextComponents implements ConstructuresInterface
      *
      * @return array
      */
-    private static function getClickEventBranches(): array
+    protected static function getClickEventBranches(): array
     {
         $branches = [];
 
@@ -309,7 +309,7 @@ class TextComponents implements ConstructuresInterface
      * @return array
      * @throws InvalidValue
      */
-    private static function getHoverEventBranches(): array
+    protected static function getHoverEventBranches(): array
     {
         $branches = [];
 
