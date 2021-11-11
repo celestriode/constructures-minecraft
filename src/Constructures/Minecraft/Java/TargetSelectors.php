@@ -2,6 +2,7 @@
 
 use Celestriode\Constructure\Context\Audits\AlwaysTrue;
 use Celestriode\Constructure\Context\Events\EventHandler;
+use Celestriode\Constructure\Context\Events\EventHandlerInterface;
 use Celestriode\Constructure\Structures\StructureInterface;
 use Celestriode\ConstructuresMinecraft\Constructures\ConstructuresInterface;
 use Celestriode\DynamicMinecraftRegistries\Java\Data\Advancements;
@@ -112,11 +113,11 @@ class TargetSelectors implements ConstructuresInterface
     /**
      * Creates and returns a new constructure object for target selectors for Java Edition.
      *
-     * @param EventHandler|null $eventHandler
+     * @param EventHandlerInterface|null $eventHandler
      * @param TargetSelectorParser|null $parser
      * @return TargetSelectorConstructure
      */
-    public static function getConstructure(EventHandler $eventHandler = null, TargetSelectorParser $parser = null): TargetSelectorConstructure
+    public static function getConstructure(EventHandlerInterface $eventHandler = null, TargetSelectorParser $parser = null): TargetSelectorConstructure
     {
         return new TargetSelectorConstructure($parser ?? static::getParser(), $eventHandler ?? new EventHandler(), TypesMatch::get()->addPredicate(StructureIsValue::get()), Negatable::get()->addPredicate(StructureIsValue::get()));
     }
