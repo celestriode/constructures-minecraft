@@ -1,7 +1,7 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Audits\Json;
 
 use Celestriode\Constructure\AbstractConstructure;
-use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Colors;
+use Celestriode\DynamicMinecraftRegistries\Java\Game\Colors;
 use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\AbstractPrimitiveAudit;
 use Celestriode\JsonConstructure\Structures\Types\AbstractJsonPrimitive;

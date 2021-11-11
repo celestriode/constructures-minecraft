@@ -4,6 +4,8 @@ use Celestriode\Constructure\Structures\StructureInterface;
 use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\DataPacks\Advancements;
 use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\TextComponents as JavaTextComponents;
 use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Bedrock\TextComponents as BedrockTextComponents;
+use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\TargetSelectors as JavaTargetSelectors;
+use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Bedrock\TargetSelectors as BedrockTargetSelectors;
 use Celestriode\ConstructuresMinecraft\Exceptions\RuntimeException;
 
 /**
@@ -19,7 +21,9 @@ final class MinecraftStructures
     private static $structures = [
         JavaTextComponents::class,
         Advancements::class,
-        BedrockTextComponents::class
+        BedrockTextComponents::class,
+        JavaTargetSelectors::class,
+        BedrockTargetSelectors::class
     ];
 
     /**
