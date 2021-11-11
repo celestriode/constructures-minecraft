@@ -1,6 +1,7 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java;
 
 use Celestriode\Constructure\Context\AuditInterface;
+use Celestriode\Constructure\Context\Audits\BitwiseAudits;
 use Celestriode\Constructure\Structures\StructureInterface;
 use Celestriode\ConstructuresMinecraft\Audits\Json\CoordinateSet;
 use Celestriode\ConstructuresMinecraft\Audits\Json\HasValueFromRegistry;
@@ -15,15 +16,17 @@ use Celestriode\ConstructuresMinecraft\Audits\Json\ValidSnbt;
 use Celestriode\ConstructuresMinecraft\Audits\Json\ValidUrl;
 use Celestriode\ConstructuresMinecraft\Audits\Json\ValidUuid;
 use Celestriode\ConstructuresMinecraft\Constructures\ConstructuresInterface;
-use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Entities;
-use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Fonts;
-use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Items;
-use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Keybinds;
-use Celestriode\ConstructuresMinecraft\Registries\Java\Resources\Translations;
+use Celestriode\ConstructuresMinecraft\Utils\EnumEdition;
+use Celestriode\DynamicMinecraftRegistries\Java\Game\Registries\EntityTypes;
+use Celestriode\DynamicMinecraftRegistries\Java\Game\Registries\Items;
+use Celestriode\DynamicMinecraftRegistries\Java\Resources\Fonts;
+use Celestriode\DynamicMinecraftRegistries\Java\Resources\Keybinds;
+use Celestriode\DynamicMinecraftRegistries\Java\Resources\Translations;
 use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\Branch;
 use Celestriode\JsonConstructure\Context\Audits\ChildHasValue;
 use Celestriode\JsonConstructure\Context\Audits\ExclusiveFields;
+use Celestriode\JsonConstructure\Context\Audits\HasValue;
 use Celestriode\JsonConstructure\Context\Audits\InclusiveFields;
 use Celestriode\JsonConstructure\Context\Audits\NumberRange;
 use Celestriode\JsonConstructure\Utils\Json;
@@ -60,15 +63,16 @@ class TextComponents implements ConstructuresInterface
         // Add recursion via array.
 
         $structure->addType(Json::array()->addElement(Json::redirect(self::getUUID())));
+        $selector = new ValidSelector(EnumEdition::JAVA);
 
         // Prepare the bulk.
 
         $component = Json::object()->failOnUnexpectedKeys(true)->addAudits(static::getTextAudit(), static::getSeparatorBranch(), static::getTranslationBranch(), ...static::getNbtBranches())
             ->addChild('text', Json::string())
-            ->addChild('selector', Json::string()->addAudit(ValidSelector::get()))
+            ->addChild('selector', Json::string()->addAudit($selector))
             ->addChild('translate', Json::string()->addAudit(static::getTranslationAudit()))
             ->addChild('score', Json::object()
-                ->addChild('name', Json::string()->required()->addAudit(new NumberRange(1, 40)))
+                ->addChild('name', Json::string()->required()->addAudit(new BitwiseAudits(BitwiseAudits::OR, $selector, new HasValue('*'))))
                 ->addChild('objective', Json::string()->required()->addAudit(new NumberRange(1, 16))))
             ->addChild('keybind', Json::string()->addAudit(static::getKeybindAudit()))
             ->addChild('nbt', Json::string()->addAudit(static::getNbtPathAudit()))
@@ -324,7 +328,7 @@ class TextComponents implements ConstructuresInterface
 
         $showEntity = Json::object()
             ->addChild('contents', Json::object()->required()
-                ->addChild('type', Json::string()->required()->addAudit(new HasResourceFromRegistry(Entities::get())))
+                ->addChild('type', Json::string()->required()->addAudit(new HasResourceFromRegistry(EntityTypes::get())))
                 ->addChild('id', Json::string()->required()->addAudit(ValidUuid::get()))
                 ->addChild('name', Json::redirect(self::getUUID())));
 

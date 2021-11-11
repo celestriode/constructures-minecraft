@@ -1,15 +1,14 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Audits\Json;
 
-use Celestriode\Captain\Exceptions\CommandSyntaxException;
-use Celestriode\Captain\StringReader;
 use Celestriode\Constructure\AbstractConstructure;
 use Celestriode\ConstructuresMinecraft\Audits\MinecraftAuditTrait;
+use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\TargetSelectors as JavaTargetSelectors;
+use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Bedrock\TargetSelectors as BedrockTargetSelectors;
 use Celestriode\ConstructuresMinecraft\Utils\EnumEdition;
+use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\AbstractStringAudit;
 use Celestriode\JsonConstructure\Structures\Types\JsonString;
-use Celestriode\Mattock\Exceptions\MattockException;
-use Celestriode\Mattock\Exceptions\NotInRegistryException;
-use Celestriode\Mattock\Parsers\Java\EntitySelectorParser;
+use Celestriode\TargetSelectorConstructure\Exceptions\ConversionFailure;
 
 /**
  * Parses a target selector. Does not (TODO) validate if selector works in context.
@@ -21,7 +20,6 @@ class ValidSelector extends AbstractStringAudit
     use MinecraftAuditTrait;
 
     public const INVALID_SYNTAX = '26a7952f-56a7-4375-84de-99b6d44c3b1e';
-    public const INVALID_SUBVALUE = 'bb86dd72-64c4-48e5-9ac8-b1cd250ba817';
 
     public function __construct(int $edition = EnumEdition::JAVA)
     {
@@ -30,6 +28,7 @@ class ValidSelector extends AbstractStringAudit
 
     /**
      * @inheritDoc
+     * @throws InvalidValue
      */
     protected function auditString(AbstractConstructure $constructure, JsonString $input, JsonString $expected): bool
     {
@@ -41,33 +40,53 @@ class ValidSelector extends AbstractStringAudit
 
             switch ($this->getEdition()) {
 
-                case EnumEdition::JAVA:
-                    $parser = new EntitySelectorParser(new StringReader($raw), true);
-                    break;
                 case EnumEdition::BEDROCK:
-                    $parser = new EntitySelectorParser(new StringReader($raw), true); // TODO: use bedrock.
-                    break;
+                    return $this->validateBedrockSelector($raw, $constructure, $input, $expected);
                 default:
-                    $parser = new EntitySelectorParser(new StringReader($raw), true);
+                    return $this->validateJavaSelector($raw, $constructure, $input, $expected);
             }
-
-            $parser->parse();
-        } catch (CommandSyntaxException | MattockException $e) {
+        } catch (ConversionFailure $e) {
 
             // Selector parsing failed, trigger event and return false.
 
-            if ($e instanceof CommandSyntaxException && $e->getType() instanceof NotInRegistryException) {
+            $constructure->getEventHandler()->trigger(self::INVALID_SYNTAX, $e, $this, $input, $expected);
 
-                $constructure->getEventHandler()->trigger(self::INVALID_SUBVALUE, $e, $e->getType(), $this, $input, $expected);
-            } else {
+            return false;
+        }
+    }
 
-                $constructure->getEventHandler()->trigger(self::INVALID_SYNTAX, $e, $this, $input, $expected);
-            }
+    /**
+     * @throws InvalidValue
+     * @throws ConversionFailure
+     */
+    protected function validateJavaSelector(string $raw, AbstractConstructure $constructure, JsonString $input, JsonString $expected): bool
+    {
+        $selectorExpected = JavaTargetSelectors::getStructure();
+        $selectorConstructure = JavaTargetSelectors::getConstructure($constructure->getEventHandler());
+        $selectorInput = $selectorConstructure->toStructure($raw);
+
+        if (!$selectorConstructure->validate($selectorInput, $selectorExpected)) {
 
             return false;
         }
 
-        // No issues, audit passes.
+        return true;
+    }
+
+    /**
+     * @throws ConversionFailure
+     * @throws InvalidValue
+     */
+    protected function validateBedrockSelector(string $raw, AbstractConstructure $constructure, JsonString $input, JsonString $expected): bool
+    {
+        $selectorExpected = BedrockTargetSelectors::getStructure();
+        $selectorConstructure = BedrockTargetSelectors::getConstructure($constructure->getEventHandler());
+        $selectorInput = $selectorConstructure->toStructure($raw);
+
+        if (!$selectorConstructure->validate($selectorInput, $selectorExpected)) {
+
+            return false;
+        }
 
         return true;
     }

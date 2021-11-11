@@ -5,8 +5,8 @@ use Celestriode\Constructure\Structures\StructureInterface;
 use Celestriode\ConstructuresMinecraft\Audits\Json\HasValueFromRegistry;
 use Celestriode\ConstructuresMinecraft\Audits\Json\ValidSelector;
 use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\TextComponents as JavaTextComponents;
-use Celestriode\ConstructuresMinecraft\Registries\Bedrock\Resources\Translations;
 use Celestriode\ConstructuresMinecraft\Utils\EnumEdition;
+use Celestriode\DynamicMinecraftRegistries\Bedrock\Resources\Translations;
 use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\Branch;
 use Celestriode\JsonConstructure\Context\Audits\ExclusiveFields;
@@ -37,10 +37,10 @@ class TextComponents extends JavaTextComponents
             ->addChild('rawtext', Json::array()->addElement(Json::object()
                 ->addAudits(static::getTextAudit(), static::getTranslationBranch())
                 ->addChild('text', Json::string())
-                ->addChild('selector', Json::string()->addAudit($selector)) // TODO: bedrock
+                ->addChild('selector', Json::string()->addAudit($selector))
                 ->addChild('translate', Json::string()->addAudit(static::getTranslationAudit()))
                 ->addChild('score', Json::object()
-                    ->addChild('name', Json::string()->required()->addAudit($selector)) // TODO: bedrock
+                    ->addChild('name', Json::string()->required()->addAudit($selector))
                     ->addChild('objective', Json::string()->required()->addAudit(new NumberRange(1, 16))) // TODO: verify
                 )
             ));
