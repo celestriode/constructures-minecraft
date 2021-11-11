@@ -13,6 +13,7 @@ use Celestriode\JsonConstructure\Context\Audits\ExclusiveFields;
 use Celestriode\JsonConstructure\Context\Audits\InclusiveFields;
 use Celestriode\JsonConstructure\Context\Audits\NumberRange;
 use Celestriode\JsonConstructure\Utils\Json;
+use Ramsey\Uuid\Uuid;
 
 /**
  *
@@ -34,8 +35,9 @@ class TextComponents extends JavaTextComponents
         $selector = new ValidSelector(EnumEdition::BEDROCK);
 
         $structure->failOnUnexpectedKeys(true)
-            ->addChild('rawtext', Json::array()->addElement(Json::object()
+            ->addChild('rawtext', Json::array()->setUUID(Uuid::fromString('51a87fd2-4e55-4afd-bf3c-8bb0135f0330'))->required()->addElement(Json::object()
                 ->addAudits(static::getTextAudit(), static::getTranslationBranch())
+                ->addChild('rawtext', Json::redirect(Uuid::fromString('51a87fd2-4e55-4afd-bf3c-8bb0135f0330')))
                 ->addChild('text', Json::string())
                 ->addChild('selector', Json::string()->addAudit($selector))
                 ->addChild('translate', Json::string()->addAudit(static::getTranslationAudit()))
@@ -55,7 +57,7 @@ class TextComponents extends JavaTextComponents
      */
     protected static function getTextAudit(): AuditInterface
     {
-        return (new ExclusiveFields('text', 'selector', 'translate', 'score'))->required();
+        return (new ExclusiveFields('text', 'selector', 'translate', 'score', 'rawtext'))->required();
     }
 
     /**
