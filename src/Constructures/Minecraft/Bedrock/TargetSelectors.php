@@ -66,7 +66,7 @@ class TargetSelectors extends JavaTargetSelectors
             ->addValue('m', Selector::string()->negatable()->supportMultiple()->addAudit(new HasValueFromRegistry(Gamemodes::get())))
             ->addValue('name', Selector::string()->negatable()->supportMultiple())
             ->addValue('family', Selector::string()->negatable()->supportMultiple()->addAudits(new HasValueFromResourceRegistry(EntityFamilies::get(), true)))
-            ->addValue('type', Selector::string()->negatable()->supportMultiple()->addAudits(new HasValueFromResourceRegistry(EntityTypes::get(), false, false)))
+            ->addValue('type', Selector::string()->negatable()->supportMultiple()->addAudits(new HasValueFromResourceRegistry(EntityTypes::get(), true, false)))
             ->addAuditsToParameter('type', RestrictedNegation::get())
             ->addAuditsToParameter('name', RestrictedNegation::get())
         ;
