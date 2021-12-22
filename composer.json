@@ -13,14 +13,14 @@
         }
     },
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "ext-json": "*",
         "celestriode/captain": "v0.0.10-beta",
         "celestriode/constructure-json": "^0.3.0",
-        "celestriode/mattock": "v0.0.11-beta",
-        "celestriode/dynamic-registry": "^1.0",
-        "celestriode/constructure-target-selector": "^1.0",
-        "celestriode/dynamic-minecraft-registries": "^1.0"
+        "celestriode/mattock": "v0.1.0-beta",
+        "celestriode/dynamic-registry": "^3.0",
+        "celestriode/constructure-target-selector": "^2.0",
+        "celestriode/dynamic-minecraft-registries": "^2.0"
     },
     "license": "MIT",
     "require-dev": {
