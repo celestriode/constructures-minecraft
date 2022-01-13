@@ -29,6 +29,7 @@ use Celestriode\JsonConstructure\Context\Audits\ExclusiveFields;
 use Celestriode\JsonConstructure\Context\Audits\HasValue;
 use Celestriode\JsonConstructure\Context\Audits\InclusiveFields;
 use Celestriode\JsonConstructure\Context\Audits\NumberRange;
+use Celestriode\JsonConstructure\Context\Audits\StringLength;
 use Celestriode\JsonConstructure\Utils\Json;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -72,8 +73,8 @@ class TextComponents implements ConstructuresInterface
             ->addChild('selector', Json::string()->addAudit($selector))
             ->addChild('translate', Json::string()->addAudit(static::getTranslationAudit()))
             ->addChild('score', Json::object()
-                ->addChild('name', Json::string()->required()->addAudit(new BitwiseAudits(BitwiseAudits::OR, $selector, new HasValue('*'))))
-                ->addChild('objective', Json::string()->required()->addAudit(new NumberRange(1, 16))))
+                ->addChild('name', Json::string()->required()->addAudit(new BitwiseAudits(BitwiseAudits::OR, $selector, new HasValue('*'), new StringLength(1, 40))))
+                ->addChild('objective', Json::string()->required()->addAudit(new StringLength(1, 16))))
             ->addChild('keybind', Json::string()->addAudit(static::getKeybindAudit()))
             ->addChild('nbt', Json::string()->addAudit(static::getNbtPathAudit()))
             ->addChild('extra', Json::array()

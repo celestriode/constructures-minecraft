@@ -1,6 +1,8 @@
 <?php namespace Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Bedrock;
 
 use Celestriode\Constructure\Structures\StructureInterface;
+use Celestriode\ConstructuresMinecraft\Audits\General\CoordinateSetTrait;
+use Celestriode\ConstructuresMinecraft\Audits\TargetSelector\CoordinateSet;
 use Celestriode\ConstructuresMinecraft\Constructures\Minecraft\Java\TargetSelectors as JavaTargetSelectors;
 use Celestriode\DynamicMinecraftRegistries\Bedrock\Game\Gamemodes;
 use Celestriode\DynamicMinecraftRegistries\Bedrock\Game\Registries\EntityFamilies;
@@ -36,17 +38,16 @@ class TargetSelectors extends JavaTargetSelectors
      */
     public static function getStructure(): StructureInterface
     {
+        $coordinateSet = new CoordinateSet(CoordinateSetTrait::$ABSOLUTE | CoordinateSetTrait::$RELATIVE | CoordinateSetTrait::$LOCAL, 1);
         $numericRange = new NumericRange(new MinMaxBounds(null, null));
         $numericPositive = new Numeric(new MinMaxBounds(0, null));
 
         $dynamic = Selector::dynamic(SelectorTargets::get());
 
-        // scores, family
-
         $dynamic->getParameters()
-            ->addValue('x', Selector::string()->addAudit(Numeric::get()))
-            ->addValue('y', Selector::string()->addAudit(Numeric::get()))
-            ->addValue('z', Selector::string()->addAudit(Numeric::get()))
+            ->addValue('x', Selector::string()->addAudit($coordinateSet))
+            ->addValue('y', Selector::string()->addAudit($coordinateSet))
+            ->addValue('z', Selector::string()->addAudit($coordinateSet))
             ->addValue('dx', Selector::string()->addAudit(Numeric::get()))
             ->addValue('dy', Selector::string()->addAudit(Numeric::get()))
             ->addValue('dz', Selector::string()->addAudit(Numeric::get()))
@@ -88,6 +89,9 @@ class TargetSelectors extends JavaTargetSelectors
         $parser = new TargetSelectorParser();
 
         $parser->addOverride('type', TargetSelectorParser::forceValueUntil($parser->separator, $parser->delimiterClose, $parser->nestedDelimiterClose));
+        $parser->addOverride('x', TargetSelectorParser::forceValueUntil($parser->separator, $parser->delimiterClose, $parser->nestedDelimiterClose));
+        $parser->addOverride('y', TargetSelectorParser::forceValueUntil($parser->separator, $parser->delimiterClose, $parser->nestedDelimiterClose));
+        $parser->addOverride('z', TargetSelectorParser::forceValueUntil($parser->separator, $parser->delimiterClose, $parser->nestedDelimiterClose));
 
         return $parser;
     }

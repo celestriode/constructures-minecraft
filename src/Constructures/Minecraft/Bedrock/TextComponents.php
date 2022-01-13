@@ -11,7 +11,7 @@ use Celestriode\DynamicRegistry\Exception\InvalidValue;
 use Celestriode\JsonConstructure\Context\Audits\Branch;
 use Celestriode\JsonConstructure\Context\Audits\ExclusiveFields;
 use Celestriode\JsonConstructure\Context\Audits\InclusiveFields;
-use Celestriode\JsonConstructure\Context\Audits\NumberRange;
+use Celestriode\JsonConstructure\Context\Audits\StringLength;
 use Celestriode\JsonConstructure\Utils\Json;
 use Ramsey\Uuid\Uuid;
 
@@ -43,7 +43,7 @@ class TextComponents extends JavaTextComponents
                 ->addChild('translate', Json::string()->addAudit(static::getTranslationAudit()))
                 ->addChild('score', Json::object()
                     ->addChild('name', Json::string()->required()->addAudit($selector))
-                    ->addChild('objective', Json::string()->required()->addAudit(new NumberRange(1, 16))) // TODO: verify
+                    ->addChild('objective', Json::string()->required()->addAudit(new StringLength(1, 16)))
                 )
             ));
 

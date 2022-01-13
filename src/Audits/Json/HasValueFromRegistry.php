@@ -59,13 +59,9 @@ class HasValueFromRegistry extends HasValue
      */
     public function auditPrimitive(AbstractConstructure $constructure, AbstractJsonPrimitive $input, AbstractJsonPrimitive $expected): bool
     {
-        // Set values to that of the registry's values.
-
-        $this->values = $this->getRegistry()->populate()->getValues(); // TODO: memory issue putting it into $->values?
-
         // Validate the value.
 
-        $result = $this->valueMatches($input->getValue(), $this->getValues());
+        $result = $this->getRegistry()->populate()->has($input->getValue());
 
         // If the input didn't exist in the registry...
 
