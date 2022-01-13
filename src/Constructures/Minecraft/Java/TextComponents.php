@@ -3,6 +3,7 @@
 use Celestriode\Constructure\Context\AuditInterface;
 use Celestriode\Constructure\Context\Audits\BitwiseAudits;
 use Celestriode\Constructure\Structures\StructureInterface;
+use Celestriode\ConstructuresMinecraft\Audits\General\CoordinateSetTrait;
 use Celestriode\ConstructuresMinecraft\Audits\Json\CoordinateSet;
 use Celestriode\ConstructuresMinecraft\Audits\Json\HasValueFromRegistry;
 use Celestriode\ConstructuresMinecraft\Audits\Json\HasResourceFromRegistry;
@@ -254,7 +255,7 @@ class TextComponents implements ConstructuresInterface
      */
     protected static function getBlockAudit(): AuditInterface
     {
-        return new CoordinateSet(CoordinateSet::ABSOLUTE | CoordinateSet::RELATIVE | CoordinateSet::LOCAL);
+        return new CoordinateSet(CoordinateSetTrait::$ABSOLUTE | CoordinateSetTrait::$RELATIVE | CoordinateSetTrait::$LOCAL);
     }
 
     /**
