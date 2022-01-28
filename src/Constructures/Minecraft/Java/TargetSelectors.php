@@ -6,7 +6,7 @@ use Celestriode\Constructure\Context\Events\EventHandlerInterface;
 use Celestriode\Constructure\Structures\StructureInterface;
 use Celestriode\ConstructuresMinecraft\Constructures\ConstructuresInterface;
 use Celestriode\DynamicMinecraftRegistries\Java\Data\Advancements;
-use Celestriode\DynamicMinecraftRegistries\Java\Data\Tags;
+use Celestriode\DynamicMinecraftRegistries\Java\Data\Tags\EntityTypeTags;
 use Celestriode\DynamicMinecraftRegistries\Java\Game\Gamemodes;
 use Celestriode\DynamicMinecraftRegistries\Java\Game\Registries\EntityTypes;
 use Celestriode\DynamicMinecraftRegistries\Java\Other\SelectorSorts;
@@ -72,7 +72,7 @@ class TargetSelectors implements ConstructuresInterface
             ->addValue('name', Selector::string()->negatable()->supportMultiple())
             ->addValue('x_rotation', Selector::string()->addAudit($numericRange))
             ->addValue('y_rotation', Selector::string()->addAudit($numericRange))
-            ->addValue('type', Selector::string()->negatable()->supportMultiple()->addAudits(new HasValueFromResourceRegistry(EntityTypes::get(), false, true, Tags::get(),true)))
+            ->addValue('type', Selector::string()->negatable()->supportMultiple()->addAudits(new HasValueFromResourceRegistry(EntityTypes::get(), false, true, EntityTypeTags::get(),true)))
             ->addValue('nbt', Selector::snbt()->negatable()->supportMultiple())
             ->addValue('predicate', Selector::string()->negatable()->supportMultiple())
             ->addValue('advancements', Selector::nested()
